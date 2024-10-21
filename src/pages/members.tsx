@@ -1,9 +1,10 @@
-import Layout from "./layout";
+import Layout from "@/components/layouts/layout";
+import UsersTable from "@/components/tables/userstable";
 
 const Members = () => {
     return (
-        <Layout>
-            <h5>dsd</h5>
+        <Layout> 
+            <UsersTable />
         </Layout>
     );
 }
