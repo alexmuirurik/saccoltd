@@ -21,7 +21,7 @@ const UsersTable = () => {
             <CardContent className="py-2 px-0">
                 <Table>
                     <TableBody className="w-full">
-                        {data && data.map((user: any, index: number) => (
+                        {data.length > 0 && data.map((user: any, index: number) => (
                             <TableRow key={user.invoice}>
                                 <TableCell className="flex items-center gap-2">
                                     <Avatar className="h-6 w-6">
