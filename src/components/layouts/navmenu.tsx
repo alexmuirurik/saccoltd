@@ -1,3 +1,6 @@
+'use client'
+import { useState } from 'react'
+import { GoSignOut } from 'react-icons/go'
 import {
     Menubar,
     MenubarCheckboxItem,
@@ -13,8 +16,16 @@ import {
     MenubarSubTrigger,
     MenubarTrigger,
 } from '@/components/ui/menubar'
+import { signOutAction } from '../auth/signin'
+import { LoadingButton } from '../ui/loadingbutton'
 
 const Navmenu = () => {
+    const [loading, setLoading] = useState(false)
+    const onSignOut = async () => {
+        setLoading(true)
+        await signOutAction()
+        setLoading(false)
+    }
     return (
         <Menubar className="bg-transparent border-0 font-mono">
             <MenubarMenu>
@@ -105,7 +116,16 @@ const Navmenu = () => {
                     <MenubarSeparator />
                     <MenubarItem inset>Edit...</MenubarItem>
                     <MenubarSeparator />
-                    <MenubarItem inset>Add Profile...</MenubarItem>
+                    <MenubarItem inset>
+                        <LoadingButton
+                            className="p-0 gap-2 cursor-pointer"
+                            onClick={onSignOut}
+                            variant={'link'}
+                            loading={loading}
+                        >
+                            Signout
+                        </LoadingButton>
+                    </MenubarItem>
                 </MenubarContent>
             </MenubarMenu>
         </Menubar>

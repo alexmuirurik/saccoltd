@@ -1,8 +1,12 @@
 import Navbar from '@/components/layouts/navbar'
 import Sidebar from '@/components/layouts/sidebar'
 import { ReactNode } from 'react'
+import { auth } from '../../../auth'
+import { redirect } from 'next/navigation'
 
-const DashboardLayout = ({ children }: { children: ReactNode }) => {
+const DashboardLayout = async ({ children }: { children: ReactNode }) => {
+    const session = await auth()
+    if (!session?.user) return redirect('/get-started')
     return (
         <main className="relative ">
             <Sidebar />
