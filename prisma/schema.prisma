@@ -79,3 +79,36 @@ model Authenticator {
 
     @@unique([userId, credentialID])
 }
+
+model Member {
+    id              String   @id @default(auto()) @map("_id") @db.ObjectId
+    firstName       String
+    lastName        String
+    surName         String
+    mobileNumber    String
+    IdNumber        String
+    email           String
+    address         String
+    employment      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Payment {
+    id              String   @id @default(auto()) @map("_id") @db.ObjectId
+    saving          Float
+    shareCapital    Float
+    deductions      Json
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Loan {
+    id              String   @id @default(auto()) @map("_id") @db.ObjectId
+    principle       Float
+    shareCapital    Float
+    loanType        String
+    guarantors      Json
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
