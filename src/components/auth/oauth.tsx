@@ -16,18 +16,17 @@ const OauthForm = ({
     const onFormSubmit = async () => {
         setLoading(true)
         await signInAction(provider)
-        setLoading(false)
+        setTimeout(() => setLoading(false), 5000)
     }
     return (
-        <form className="w-full" action={onFormSubmit}>
-            <LoadingButton
-                className="gap-2 w-full cursor-pointer"
-                loading={Loading}
-            >
-                {provider === 'google' ? <FcGoogle /> : <FaGithub />} Sign in
-                with {title}
-            </LoadingButton>
-        </form>
+        <LoadingButton
+            loading={Loading}
+            className="gap-2 w-full cursor-pointer"
+            onClick={onFormSubmit}
+        >
+            {provider === 'google' ? <FcGoogle /> : <FaGithub />} Sign in with{' '}
+            {title}
+        </LoadingButton>
     )
 }
 

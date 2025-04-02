@@ -9,22 +9,24 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
-import { ReactNode } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { LoadingButton } from '../ui/loadingbutton'
 
 const FormDialog = ({
+    open,
+    onOpenChange,
     title,
     description,
     children,
-    onSubmit,
 }: {
+    open: boolean
+    onOpenChange: Dispatch<SetStateAction<boolean>>
     title: string
     description: string
     children: ReactNode
-    onSubmit: () => void
 }) => {
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogTrigger asChild>
                 <LoadingButton className="bg-teal-600 hover:bg-teal-500 cursor-pointer py-1">
                     {title}
@@ -38,14 +40,6 @@ const FormDialog = ({
                     </DialogDescription>
                 </DialogHeader>
                 {children}
-                <DialogFooter className="sm:justify-center">
-                    <LoadingButton
-                        className="bg-teal-600 hover:bg-teal-500 cursor-pointer"
-                        onClick={onSubmit}
-                    >
-                        {title}
-                    </LoadingButton>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     )

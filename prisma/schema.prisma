@@ -15,9 +15,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    // Optional for WebAuthn support
     Authenticator Authenticator[]
-
+    member          Member?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -82,23 +81,30 @@ model Authenticator {
 
 model Member {
     id              String   @id @default(auto()) @map("_id") @db.ObjectId
+    userId          String?  @db.ObjectId @unique
     firstName       String
     lastName        String
     surName         String
-    mobileNumber    String
-    IdNumber        String
-    email           String
+    mobileNumber    String @unique
+    IdNumber        String @unique
+    email           String @unique
     address         String
-    employment      String
+    occupation      String
+    user            User? @relation(fields: [userId], references: [id])
+    payments        Payment[]
+    loans           Loan[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model Payment {
     id              String   @id @default(auto()) @map("_id") @db.ObjectId
-    saving          Float
+    payment         Float
+    savings         Float
     shareCapital    Float
     deductions      Json
+    memberId        String @db.ObjectId
+    members         Member @relation(fields: [memberId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -109,6 +115,8 @@ model Loan {
     shareCapital    Float
     loanType        String
     guarantors      Json
+    memberId        String @db.ObjectId
+    member          Member @relation(fields: [memberId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

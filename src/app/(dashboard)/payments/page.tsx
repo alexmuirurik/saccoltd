@@ -1,16 +1,17 @@
+import { getPayments } from '@/actions/paymentController'
+import PaymentsCard from '@/components/cards/paymentscard'
 import AddPayment from '@/components/forms/addpayment'
 import Pageheader from '@/components/layouts/pageheader'
-import TransactionTable from '@/components/tables/transactions'
-import React from 'react'
 
-const PaymentsPage = () => {
+const PaymentsPage = async () => {
+    const payments = await getPayments() ?? []
     return (
         <div className="page-body">
             <Pageheader title="Payments">
                 <AddPayment />
             </Pageheader>
             <div className="relative">
-                <TransactionTable />
+                <PaymentsCard payments={payments} />
             </div>
         </div>
     )

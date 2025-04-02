@@ -2,19 +2,13 @@
 import Link from 'next/link'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { LoadingButton } from '../ui/loadingbutton'
+import { Member } from '@prisma/client'
 
-const users = [
-    {
-        id: 'sjaskjsa292',
-        name: 'Alex Muiruri',
-    },
-]
-
-const Userscard = () => {
-    return users.map((user, index) => (
+const Userscard = ({ members }: { members: Member[] }) => {
+    return members.map((member, index) => (
         <Link
-            key={user.id}
-            href={`/writers/${user.id}`}
+            key={member.id}
+            href={`/writers/${member.id}`}
             className="flex flex-col items-center justify-center p-6 border border-gray-300 rounded-md shadow-sm"
         >
             <Avatar className="bg-teal-500 h-12 w-12">
@@ -28,7 +22,7 @@ const Userscard = () => {
                 <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <h4 className="text-base font-bold text-gray-800 mt-4">
-                {user.name}
+                {`${member.firstName} ${member.lastName}`}
             </h4>
             <p className="font-bold text-xs">Writer at Novica Co.</p>
             <div className="flex gap-2 items-center justify-center mt-4">
