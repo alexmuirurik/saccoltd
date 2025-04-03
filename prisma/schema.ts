@@ -19,3 +19,9 @@ export const CreatePaymentSchema = z.object({
     deductions: z.any(),
     memberId: z.string()
 })
+
+export const CreateLoanSchema = z.object({
+    principle: z.string(),
+    loanType: z.string(),
+    
+})

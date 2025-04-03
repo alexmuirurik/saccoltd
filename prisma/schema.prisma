@@ -104,7 +104,7 @@ model Payment {
     shareCapital    Float
     deductions      Json
     memberId        String @db.ObjectId
-    members         Member @relation(fields: [memberId], references: [id])
+    member          Member @relation(fields: [memberId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
