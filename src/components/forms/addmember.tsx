@@ -23,32 +23,6 @@ const Addmember = () => {
         data: z.infer<typeof CreateMemberSchema>,
     ) => {
         setLoading(true)
-        if (Number(data.payment) < 1500) {
-            setLoading(false)
-            return toast.error(
-                'The user must make a payment of over 1500 Ksh',
-                {
-                    style: {
-                        background: 'darkred',
-                        borderColor: 'darkorange',
-                        color: 'white'
-                    },
-                },
-            )
-        }
-
-        if (Number(data.payment) < Number(data.savings)) {
-            setLoading(false)
-            return toast.error(
-                'User savings cannot exceed the payment amount',
-                {
-                    style: {
-                        background: 'red',
-                    },
-                },
-            )
-        }
-
         const member = await createMember(data)
 
         if (member) {
@@ -198,44 +172,10 @@ const Addmember = () => {
                     <div className="flex gap-2 w-full">
                         <FormField
                             control={form.control}
-                            name="payment"
-                            render={({ field }) => (
-                                <FormItem className="w-full">
-                                    <FormLabel>Payment</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            className="focus-visible:ring-0 focus-visible:border-teal-400"
-                                            placeholder="Payment"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="savings"
-                            render={({ field }) => (
-                                <FormItem className="w-full">
-                                    <FormLabel>Savings</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            className="focus-visible:ring-0 focus-visible:border-teal-400"
-                                            placeholder="Savings"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <div className="flex gap-2 w-full">
-                        <FormField
-                            control={form.control}
                             name="address"
                             render={({ field }) => (
                                 <FormItem className="w-full">
-                                    <FormLabel>Address</FormLabel>
+                                    <FormLabel>Residencial Address</FormLabel>
                                     <FormControl>
                                         <Input
                                             className="focus-visible:ring-0 focus-visible:border-teal-400"

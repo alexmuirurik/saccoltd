@@ -9,8 +9,6 @@ export const CreateMemberSchema = z.object({
     email: z.string(),
     address: z.string(),
     occupation: z.string(),
-    payment: z.string(),
-    savings: z.string(),
 })
 
 export const CreatePaymentSchema = z.object({

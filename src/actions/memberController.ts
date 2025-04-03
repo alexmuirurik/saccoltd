@@ -23,17 +23,6 @@ export const createMember = async (
             },
         })
 
-        if (createMemba) {
-            const payment = await createPayment({
-                payment: Number(data.payment) - 500,
-                savings: Number(data.savings),
-                deductions: {
-                    registration: 500,
-                },
-                memberId: createMemba.id,
-            })
-        }
-
         return createMemba
     } catch (error) {
         console.log(`Error creating member ${error}`)
