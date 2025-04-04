@@ -145,7 +145,7 @@ const Addmember = () => {
                                     <FormControl>
                                         <Input
                                             className="focus-visible:ring-0 focus-visible:border-teal-400"
-                                            placeholder="ID Number"
+                                            placeholder="Mobile Number"
                                             {...field}
                                         />
                                     </FormControl>

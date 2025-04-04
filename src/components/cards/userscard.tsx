@@ -24,7 +24,7 @@ const Userscard = ({ members }: { members: Member[] }) => {
             <h4 className="text-base font-bold text-gray-800 mt-4">
                 {`${member.firstName} ${member.lastName}`}
             </h4>
-            <p className="font-bold text-xs">Writer at Novica Co.</p>
+            <p className="font-bold text-xs">{member.mobileNumber}.</p>
             <div className="flex gap-2 items-center justify-center mt-4">
                 <div className="first rounded-md p-1 px-4">
                     <LoadingButton variant={'outline'} className="">

@@ -10,18 +10,7 @@ export const createMember = async (
     try {
         const member = await getMemberByEmail(data.email)
 
-        const createMemba = await prisma.member.create({
-            data: {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                surName: data.surName,
-                email: data.email,
-                mobileNumber: data.mobileNumber,
-                address: data.address,
-                IdNumber: data.IdNumber,
-                occupation: data.occupation,
-            },
-        })
+        const createMemba = await prisma.member.create({ data })
 
         return createMemba
     } catch (error) {
