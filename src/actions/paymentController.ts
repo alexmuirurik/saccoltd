@@ -8,15 +8,7 @@ export const createPayment = async (
 ) => {
     try {
         console.log('started')
-        const payment = await prisma.payment.create({
-            data: {
-                payment: data.payment,
-                savings: data.savings,
-                shareCapital: data.payment - data.savings,
-                deductions: data.deductions,
-                memberId: data.memberId,
-            },
-        })
+        const payment = await prisma.payment.create({ data })
 
         return payment
     } catch (error) {

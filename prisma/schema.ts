@@ -2,7 +2,7 @@ import { any, z } from 'zod'
 
 export const CreateMemberSchema = z.object({
     firstName: z.string(),
-    lastName: z.string(),
+    lastName: z.string(), 
     surName: z.string(),
     mobileNumber: z.string(),
     IdNumber: z.string(),
@@ -12,10 +12,19 @@ export const CreateMemberSchema = z.object({
 })
 
 export const CreatePaymentSchema = z.object({
-    payment: z.number(),
-    savings: z.number(),
-    deductions: z.any(),
-    memberId: z.string()
+    savingsAccountId: z.string(),
+    totalRepaid: z.number(),
+    sharesBroughtForward: z.number(),
+    loansBroughtForward: z.number(),
+    advancesBroughtForward: z.number(),
+    shareCapital: z.number(),
+    loanPrinciple: z.number(),
+    interest: z.number(),
+    walfare: z.number(),
+    sharesCarriedForward: z.number(),
+    loansCarriedForward: z.number(),
+    advancesCarriedForward: z.number(),
+    monthlySavings: z.number(),
 })
 
 export const CreateLoanSchema = z.object({

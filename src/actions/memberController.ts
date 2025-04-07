@@ -2,7 +2,6 @@
 import { z } from 'zod'
 import { CreateMemberSchema } from '../../prisma/schema'
 import { prisma } from '../../prisma/prisma'
-import { createPayment } from './paymentController'
 
 export const createMember = async (
     data: z.infer<typeof CreateMemberSchema>,
@@ -24,6 +23,9 @@ export const getMemberByEmail = async (email: string) => {
             where: {
                 email: email,
             },
+            include: {
+                savingsAccounts: true
+            },
         })
         return member
     } catch (error) {
@@ -33,7 +35,11 @@ export const getMemberByEmail = async (email: string) => {
 
 export const getMembers = async () => {
     try {
-        const members = await prisma.member.findMany()
+        const members = await prisma.member.findMany({
+            include: {
+                savingsAccounts: true
+            },
+        })
         return members
     } catch (error) {
         console.log(`Error Getting Members ${error}`)

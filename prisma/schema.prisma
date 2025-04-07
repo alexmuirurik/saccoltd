@@ -16,8 +16,8 @@ model User {
     accounts      Account[]
     sessions      Session[]
     Authenticator Authenticator[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    createdAt     DateTime        @default(now())
+    updatedAt     DateTime        @updatedAt
 }
 
 model Account {
@@ -79,78 +79,100 @@ model Authenticator {
 }
 
 model Member {
-    id              String   @id @default(auto()) @map("_id") @db.ObjectId
-    userId          String? 
+    id              String           @id @default(auto()) @map("_id") @db.ObjectId
+    activeAccountId String?          @db.ObjectId
+    userId          String?
     firstName       String
     lastName        String
     surName         String
-    mobileNumber    String @unique
-    IdNumber        String @unique
-    email           String @unique
+    mobileNumber    String           @unique
+    IdNumber        String           @unique
+    email           String           @unique
     address         String
     occupation      String
-    payments        Payment[]
-    loans           Loan[]
-    bonuses         Bonus[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    savingsAccounts SavingsAccount[]
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @updatedAt
 }
 
-model Balances {
-    id                      String   @id @default(auto()) @map("_id") @db.ObjectId
-    currentSavings          Float
-    currentLoanBalance      Float
-    currentAdvanceBalance   Float
-    currentBonus            Float
-    currentProject          Float
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model SavingsAccount {
+    id             String    @id @default(auto()) @map("_id") @db.ObjectId
+    memberId       String    @db.ObjectId
+    name           String
+    accountType    String
+    minimumSavings Float
+    loanLimit      Float
+    advanceLimit   Float
+    shareCapital   Float
+    savingsBalance Float
+    loanBalance    Float
+    advanceBalance Float
+    bonus          Float
+    project        Float
+    walfare        Float
+    member         Member    @relation(fields: [memberId], references: [id])
+    payments       Payment[]
+    loans          Loan[]
+    advances       Advance[]
+    bonuses        Bonus[]
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
 }
 
 model Payment {
-    id                      String   @id @default(auto()) @map("_id") @db.ObjectId
-    sharesBroughtForward    Float
-    loansBroughtForward     Float
-    advancesBroughtForward  Float
-    totalRepaid             Float
-    loanPrinciple           Float
-    interest                Float
-    monthlySavings          Float
-    walfare                 Float
-    sharesCarriedForward    Float
-    loansCarriedForward     Float
-    advancesCarriedForward  Float
-    memberId                String @db.ObjectId
-    member                  Member @relation(fields: [memberId], references: [id])
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id                     String         @id @default(auto()) @map("_id") @db.ObjectId
+    savingsAccountId       String         @db.ObjectId
+    totalRepaid            Float
+    sharesBroughtForward   Float
+    loansBroughtForward    Float
+    advancesBroughtForward Float
+    shareCapital           Float
+    loanPrinciple          Float
+    interest               Float
+    monthlySavings         Float
+    walfare                Float
+    sharesCarriedForward   Float
+    loansCarriedForward    Float
+    advancesCarriedForward Float
+    savingsAccount         SavingsAccount @relation(fields: [savingsAccountId], references: [id])
+    createdAt              DateTime       @default(now())
+    updatedAt              DateTime       @updatedAt
 }
 
 model Loan {
-    id              String   @id @default(auto()) @map("_id") @db.ObjectId
-    principle       Float
-    shareCapital    Float
-    loanType        String
-    guarantors      Json
-    memberId        String @db.ObjectId
-    member          Member @relation(fields: [memberId], references: [id])
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id               String         @id @default(auto()) @map("_id") @db.ObjectId
+    savingsAccountId String         @db.ObjectId
+    principle        Float
+    paymentPeriod    Int
+    monthlyPayment   Float
+    interest         Float
+    guarantors       Json
+    status           String
+    savingsAccount   SavingsAccount @relation(fields: [savingsAccountId], references: [id])
+    createdAt        DateTime       @default(now())
+    updatedAt        DateTime       @updatedAt
 }
 
 model Advance {
-    id              String   @id @default(auto()) @map("_id") @db.ObjectId
-
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    savingsAccountId String         @db.ObjectId
+    principle        Float
+    paymentPeriod    Int
+    monthlyPayment   Float
+    interest         Float
+    guarantors       Json
+    status           String
+    savingsAccount   SavingsAccount @relation(fields: [savingsAccountId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model Bonus {
-    id              String   @id @default(auto()) @map("_id") @db.ObjectId
-    bonus           Float
-    project         Float
-    memberId        String @db.ObjectId
-    member          Member @relation(fields: [memberId], references: [id])
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id               String         @id @default(auto()) @map("_id") @db.ObjectId
+    savingsAccountId String         @db.ObjectId
+    bonus            Float
+    project          Float
+    savingsAccount   SavingsAccount @relation(fields: [savingsAccountId], references: [id])
+    createdAt        DateTime       @default(now())
+    updatedAt        DateTime       @updatedAt
 }
